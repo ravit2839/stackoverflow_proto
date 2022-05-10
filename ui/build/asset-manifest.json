@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d52cbe81.css",
+    "main.js": "/static/js/main.a396577e.js",
+    "static/media/LogoMd.svg": "/static/media/LogoMd.ad699393c2f6ee1e6247267c82b440b0.svg",
+    "index.html": "/index.html",
+    "static/media/PageSpinner.svg": "/static/media/PageSpinner.53b13299eedfde70726d683794cda605.svg",
+    "static/media/three-dots.svg": "/static/media/three-dots.50b404596b0483a484963b773cf6b2b2.svg",
+    "static/media/Globe.svg": "/static/media/Globe.1f1541dce8f8d38caa4693feaf074502.svg",
+    "static/media/Quote.svg": "/static/media/Quote.36043791c3eaeb1a335e4f625ec97c95.svg",
+    "static/media/Search.svg": "/static/media/Search.204c2c5087ce6824a2560043605b24f6.svg",
+    "static/media/GitHub.svg": "/static/media/GitHub.5503118f01c925d3472835489d203b09.svg",
+    "static/media/LogoGlyphMd.svg": "/static/media/LogoGlyphMd.c5b7134cdd957ba760a8e6a5691b4421.svg",
+    "static/media/Database.svg": "/static/media/Database.b9910f74ed0a2fdff6cc940060774d04.svg",
+    "static/media/Tags.svg": "/static/media/Tags.b77d2754a5b0e74a84aac00b84d03830.svg",
+    "static/media/StackExchange.svg": "/static/media/StackExchange.718ff891ba2eb60374e2afdb7a2f132b.svg",
+    "static/media/Trophy.svg": "/static/media/Trophy.e84e1572f2f5f8f0ddbe8910af358fbe.svg",
+    "static/media/ExternalLink.svg": "/static/media/ExternalLink.0fb9f1482de99a93f3db764b69005dba.svg",
+    "static/media/Vote.svg": "/static/media/Vote.e862fa3146763c111a444db468a5264c.svg",
+    "static/media/Edit.svg": "/static/media/Edit.bc30e1689e0455b7497da2837c0256cd.svg",
+    "static/media/ArrowDownLg.svg": "/static/media/ArrowDownLg.83b640114bd2ed3c588c3ae8e652619e.svg",
+    "static/media/ArrowUpLg.svg": "/static/media/ArrowUpLg.6e5e437d75805fee0f0a5c5482d0766b.svg",
+    "static/media/SelectedArrowDownLg.svg": "/static/media/SelectedArrowDownLg.439788e9c678b09b7a6ad8e457d7d3f1.svg",
+    "static/media/SelectedArrowUpLg.svg": "/static/media/SelectedArrowUpLg.e8b5108231cdee123cd2fe573e7534d7.svg",
+    "main.d52cbe81.css.map": "/static/css/main.d52cbe81.css.map",
+    "main.a396577e.js.map": "/static/js/main.a396577e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d52cbe81.css",
+    "static/js/main.a396577e.js"
+  ]
+}

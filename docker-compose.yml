@@ -1,0 +1,105 @@
+version: "3.9"
+services:
+  zookeeper:
+    image: "bitnami/zookeeper:latest"
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    restart: unless-stopped
+  kafka:
+    image: "bitnami/kafka:latest"
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_ADVERTISED_HOSTNAME=kafka
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    depends_on:
+      - zookeeper
+    restart: unless-stopped
+  mongodb-primary:
+    image: index.docker.io/bitnami/mongodb:4.4
+    volumes:
+      - mongo-backup:/bitnami/mongodb:z
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_ROOT_PASSWORD=admin
+      - MONGODB_USERNAME=root
+      - MONGODB_PASSWORD=admin
+      - MONGODB_DATABASE=stackoverflow
+    ports:
+      - "27017:27017"
+  cache:
+    image: redis:6.2-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - cache:/data
+
+  mysqldb:
+    platform: linux/x86_64
+    image: mysql:latest
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password --sql_mode=""
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=stack_overflow
+    volumes:
+      - db-backup:/var/lib/mysql
+  core:
+    build: core
+    environment:
+      - CORE_ADVERTISED_HOSTNAME=core
+      - HOST=mysqldb
+      - USER=root
+      - DATABASE=stack_overflow
+      - PASSWORD=admin
+      - JWT_SECRET=stack_overflow_api
+      - JWT_EXPIRES_IN=1
+      - MONGO_URI=mongodb://root:admin@mongodb-primary:27017/stackoverflow
+      - REDIS_URI=redis://cache
+      - KAFKA_URI=kafka:9092
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysqldb
+      - cache
+      - kafka
+    restart: unless-stopped
+
+  ui:
+    build: ui/
+    environment:
+      - BACKEND_SERVICE_URI=http://core:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - core
+      - cache
+    restart: unless-stopped
+
+  nginx:
+    depends_on:
+      - core
+      - ui
+    restart: unless-stopped
+    build: nginx/
+    ports:
+      - "8080:80"
+
+volumes:
+  db-backup:
+    external: true
+  cache:
+    driver: local
+  mongo-backup:
+    external: true
